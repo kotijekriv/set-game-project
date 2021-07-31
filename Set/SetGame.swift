@@ -33,22 +33,18 @@ struct SetGame {
             threeCardsUp = false
         }
         
-        
         if let chosenIndex = cards.firstIndex(where: {$0.id == card.id}){
             
             if !cards[chosenIndex].isFaceUp {
                 //if the card is not face up turn it face up
                 //and do something with it
                 
-                
                 cardsFaceUp.append(cards[chosenIndex])
                 
                 if cardsFaceUp.count==3{
-                    //TODO
-                    //isSet()
-                    //if isSet(cardsFaceUP){
-                    //  isSetFound = true
-                    //}
+                    if isSet(cards: cardsFaceUp){
+                      isSetFound = true
+                    }
                     
                     threeCardsUp = true
                     
@@ -73,14 +69,19 @@ struct SetGame {
     
     init() {
         cards = []
-        cards.removeAll()
         cardsFaceUp = []
+        
+        cards.removeAll()
         cardsFaceUp.removeAll()
+        
         threeCardsUp = false
         isSetFound = false
+        
         createADeck()
         cards.shuffle()
     }
+    
+    
     
     
     //MARK: -Creating a new deck

@@ -16,6 +16,7 @@
 		A72516F226B07CE200BE0406 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72516F126B07CE200BE0406 /* AspectVGrid.swift */; };
 		A72516F426B1903800BE0406 /* StripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72516F326B1903800BE0406 /* StripView.swift */; };
 		A72516F626B1DE2100BE0406 /* CardSymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72516F526B1DE2100BE0406 /* CardSymbolView.swift */; };
+		A7278B1526B5FB85002B7213 /* isSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7278B1426B5FB85002B7213 /* isSet.swift */; };
 		A7B8BAF426B2CAEE00EB51F9 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8BAF326B2CAEE00EB51F9 /* Card.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		A72516F126B07CE200BE0406 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		A72516F326B1903800BE0406 /* StripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripView.swift; sourceTree = "<group>"; };
 		A72516F526B1DE2100BE0406 /* CardSymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSymbolView.swift; sourceTree = "<group>"; };
+		A7278B1426B5FB85002B7213 /* isSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = isSet.swift; sourceTree = "<group>"; };
 		A7B8BAF326B2CAEE00EB51F9 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,6 +72,7 @@
 				A72516F326B1903800BE0406 /* StripView.swift */,
 				A72516F126B07CE200BE0406 /* AspectVGrid.swift */,
 				A72516ED26B00B5E00BE0406 /* SetGame.swift */,
+				A7278B1426B5FB85002B7213 /* isSet.swift */,
 				A7B8BAF326B2CAEE00EB51F9 /* Card.swift */,
 				A72516EF26B00B9E00BE0406 /* SoloSetGame.swift */,
 				A72516E226B0091900BE0406 /* Assets.xcassets */,
@@ -163,6 +166,7 @@
 				A72516DF26B0091900BE0406 /* SetApp.swift in Sources */,
 				A72516F226B07CE200BE0406 /* AspectVGrid.swift in Sources */,
 				A72516F026B00B9E00BE0406 /* SoloSetGame.swift in Sources */,
+				A7278B1526B5FB85002B7213 /* isSet.swift in Sources */,
 				A72516F426B1903800BE0406 /* StripView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
