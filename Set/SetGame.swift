@@ -8,10 +8,11 @@
 import Foundation
 
 struct SetGame {
+    private(set) var deck: Array<Card>
     private(set) var cards: Array<Card>
-    var cardsFaceUp: Array<Card>
-    var threeCardsUp: Bool
-    var isSetFound: Bool
+    private(set) var cardsFaceUp: Array<Card>
+    private var threeCardsUp: Bool
+    private var isSetFound: Bool
     
     mutating func choose(_ card: Card){
         
@@ -68,9 +69,11 @@ struct SetGame {
     }
     
     init() {
+        deck = []
         cards = []
         cardsFaceUp = []
         
+        deck.removeAll()
         cards.removeAll()
         cardsFaceUp.removeAll()
         
@@ -78,7 +81,13 @@ struct SetGame {
         isSetFound = false
         
         createADeck()
-        cards.shuffle()
+        deck.shuffle()
+        
+        //TODO review
+        for index in 0..<12 {
+            cards.append(deck[index])
+        }
+        deck.removeSubrange(0..<12)
     }
     
     
@@ -87,13 +96,13 @@ struct SetGame {
     //MARK: -Creating a new deck
     
     mutating func createADeck(){
-        cards.removeAll()
+        deck.removeAll()
         var i: Int = 0
         for color in CardColor.allValues{
             for shading in CardShading.allValues{
                 for symbol in CardSymbol.allValues{
                     for number in CardNumber.allValues{
-                        cards.append(Card(shading: shading, color: color, symbol: symbol, number: number, id: i))
+                        deck.append(Card(shading: shading, color: color, symbol: symbol, number: number, id: i))
                         i+=1
                     }
                 }

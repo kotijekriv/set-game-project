@@ -24,6 +24,13 @@ class SoloSetGame: ObservableObject {
     
     //MARK: - Intent(s)
     
+    func newGame() {
+        model = SoloSetGame.createSetGame()
+    }
+    
+    func drawCards() {
+        //model.drawCards
+    }
     func choose(_ card: Card) {
         model.choose(card)
     }

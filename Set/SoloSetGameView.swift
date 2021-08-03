@@ -29,11 +29,21 @@ struct SetGameView: View {
             }
             Spacer()
             HStack{
-                Button("DRAW CARDS"){
-                    //TODO SOME ACTION
+                Button("NEW GAME"){
+                    game.newGame()
                 }
                 .padding()
                 .background(Color.blue)
+                .foregroundColor(.white)
+                .clipShape(Capsule())
+                
+                Spacer()
+                
+                Button("DRAW CARDS"){
+                    game.drawCards()
+                }
+                .padding()
+                .background(Color.orange)
                 .foregroundColor(.white)
                 .clipShape(Capsule())
             }
