@@ -34,6 +34,6 @@ struct StripView<T>: View where T: Shape {
 struct StripView_Previews: PreviewProvider {
     static var previews: some View {
         
-        StripView(shape: Triangle(),color: .red)
+        StripView(shape: CardSymbolView.Diamond(),color: .red)
     }
 }
