@@ -36,9 +36,6 @@ struct SetGame {
                 }
             }
             
-//            for i in 0..<3 {
-//                cards.removeAll(where: {$0.id == cardsFaceUp[i].id})
-//            }
             cardsFaceUp.removeAll()
             
             //if cards are SET you get +3 points
@@ -46,7 +43,6 @@ struct SetGame {
             
             isSetFound = false
             threeCardsUp = false
-//            drawCards()
             
         }else if threeCardsUp && !isSetFound{
             for i in 0..<3 {
