@@ -110,7 +110,6 @@ struct CardContentView: View {
                     CardSymbolView(card: card)
                 }
             }
-            .padding()
         }
     }
 }

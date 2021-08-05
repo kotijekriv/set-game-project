@@ -16,7 +16,6 @@ struct SetGame {
     
     mutating func choose(_ card: Card){
         
-        //TODO ADD situation when three cards are set and when they are not
         if threeCardsUp && isSetFound {
             for i in 0..<3 {
                 cards.removeAll(where: {$0.id == cardsFaceUp[i].id})
@@ -24,6 +23,8 @@ struct SetGame {
             cardsFaceUp.removeAll()
             isSetFound = false
             threeCardsUp = false
+            drawCards()
+            
         }else if threeCardsUp && !isSetFound{
             for i in 0..<3 {
                 if let chosenIndex = cards.firstIndex(where: {$0.id == cardsFaceUp[i].id}){
@@ -46,16 +47,9 @@ struct SetGame {
                     if isSet(cards: cardsFaceUp){
                       isSetFound = true
                     }
-                    
                     threeCardsUp = true
-                    
-                } else{
-                    
                 }
-                
                 cards[chosenIndex].isFaceUp = true
-                
-                
             } else{
                 //If face up card is selected, verify how many cards are there and
                 //let the user to turn the card face down
@@ -64,7 +58,15 @@ struct SetGame {
                     cards[chosenIndex].isFaceUp = false
                 }
             }
-            
+        }
+    }
+    
+    mutating func drawCards(){
+        if !deck.isEmpty{
+            for index in 0..<3{
+                cards.append(deck[index])
+            }
+            deck.removeSubrange(0..<3)
         }
     }
     
@@ -108,5 +110,25 @@ struct SetGame {
                 }
             }
         }
+    }
+    
+    //MARK: -isSet function
+    
+    private func isSet(cards: Array<Card>) -> Bool{
+        let firstCard = cards[0]
+        let secondCard = cards[1]
+        let thirdCard = cards[2]
+        
+        return noTwoOf(firstCard.shading, secondCard.shading, thirdCard.shading) &&
+            noTwoOf(firstCard.color, firstCard.color, firstCard.color) &&
+            noTwoOf(firstCard.symbol, secondCard.symbol, thirdCard.symbol) &&
+            noTwoOf(firstCard.number, secondCard.number, thirdCard.number)
+    }
+
+    private func noTwoOf<T: Comparable>(_ first: T, _ second: T, _ third: T) -> Bool {
+        
+        return !((first == second && first != third) ||
+            (first == third && first != second) ||
+            (second == third && first != second))
     }
 }

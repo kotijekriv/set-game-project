@@ -9,9 +9,6 @@ import SwiftUI
 
 class SoloSetGame: ObservableObject {
     
-    //typealias Card = SetGame.Card
-    
-    
     private static func createSetGame() -> SetGame{
         SetGame()
     }
@@ -29,7 +26,7 @@ class SoloSetGame: ObservableObject {
     }
     
     func drawCards() {
-        //model.drawCards
+        model.drawCards()
     }
     func choose(_ card: Card) {
         model.choose(card)
