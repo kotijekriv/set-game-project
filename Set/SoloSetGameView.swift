@@ -12,16 +12,21 @@ struct SetGameView: View {
     
     var body: some View {
         VStack{
-            VStack{
-                Text("SET")
+            HStack{
+                Text("SET GAME")
                     .foregroundColor(.blue)
                     .bold()
                     .font(.largeTitle)
-                    .padding(.bottom)
+                Spacer()
+                Text("SCORE: \(game.score)")
+                    .foregroundColor(.blue)
+                    .bold()
+                    .font(.subheadline)
             }
+            .padding()
             Spacer()
             AspectVGrid(items: game.cards, aspectRatio: 2/3){ card in
-                CardView(card: card)
+                CardView(card: card, threeCardsUp: game.threeCardsUp, isSetFound: game.isSetFound)
                     .padding(3)
                     .onTapGesture {
                         game.choose(card)
@@ -56,6 +61,8 @@ struct SetGameView: View {
 
 struct CardView: View {
     let card: Card
+    let threeCardsUp: Bool
+    let isSetFound: Bool
     
     var body: some View {
         
@@ -83,7 +90,11 @@ struct CardView: View {
     }
     
     private func cardColor(isFaceUp: Bool) ->Color{
-        if isFaceUp {
+        if isFaceUp && threeCardsUp && isSetFound {
+            return .yellow
+        }else if isFaceUp && threeCardsUp {
+            return .gray
+        }else if isFaceUp{
             return .orange
         }else{
             return .white

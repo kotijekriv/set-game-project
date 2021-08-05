@@ -11,8 +11,9 @@ struct SetGame {
     private(set) var deck: Array<Card>
     private(set) var cards: Array<Card>
     private(set) var cardsFaceUp: Array<Card>
-    private var threeCardsUp: Bool
-    private var isSetFound: Bool
+    private(set) var score: Int
+    private(set) var threeCardsUp: Bool
+    private(set) var isSetFound: Bool
     
     mutating func choose(_ card: Card){
         
@@ -21,6 +22,10 @@ struct SetGame {
                 cards.removeAll(where: {$0.id == cardsFaceUp[i].id})
             }
             cardsFaceUp.removeAll()
+            
+            //if cards are SET you get +3 points
+            score+=3
+            
             isSetFound = false
             threeCardsUp = false
             drawCards()
@@ -32,6 +37,10 @@ struct SetGame {
                 }
             }
             cardsFaceUp.removeAll()
+            
+            //if cards are not SET you get -2 points
+            score-=2
+            
             threeCardsUp = false
         }
         
@@ -74,6 +83,7 @@ struct SetGame {
         deck = []
         cards = []
         cardsFaceUp = []
+        score = 0
         
         deck.removeAll()
         cards.removeAll()
@@ -120,7 +130,7 @@ struct SetGame {
         let thirdCard = cards[2]
         
         return noTwoOf(firstCard.shading, secondCard.shading, thirdCard.shading) &&
-            noTwoOf(firstCard.color, firstCard.color, firstCard.color) &&
+            noTwoOf(firstCard.color, secondCard.color, thirdCard.color) &&
             noTwoOf(firstCard.symbol, secondCard.symbol, thirdCard.symbol) &&
             noTwoOf(firstCard.number, secondCard.number, thirdCard.number)
     }

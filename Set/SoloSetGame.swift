@@ -19,6 +19,18 @@ class SoloSetGame: ObservableObject {
         return model.cards
     }
     
+    var score: Int{
+        return model.score
+    }
+    
+    var threeCardsUp: Bool{
+        return model.threeCardsUp
+    }
+    
+    var isSetFound: Bool{
+        return model.isSetFound
+    }
+    
     //MARK: - Intent(s)
     
     func newGame() {
