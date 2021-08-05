@@ -18,9 +18,27 @@ struct SetGame {
     mutating func choose(_ card: Card){
         
         if threeCardsUp && isSetFound {
-            for i in 0..<3 {
-                cards.removeAll(where: {$0.id == cardsFaceUp[i].id})
+            if !deck.isEmpty{
+                var check = false
+                
+                for index in 0..<3 {
+                    if let chosenIndex = cards.firstIndex(where: {$0.id == cardsFaceUp[index].id}){
+                        cards[chosenIndex] = deck[index]
+                    }
+                    check = true
+                }
+                if check{
+                    deck.removeSubrange(0..<3)
+                }
+            }else{
+                for index in 0..<3 {
+                    cards.removeAll(where: {$0.id == cardsFaceUp[index].id})
+                }
             }
+            
+//            for i in 0..<3 {
+//                cards.removeAll(where: {$0.id == cardsFaceUp[i].id})
+//            }
             cardsFaceUp.removeAll()
             
             //if cards are SET you get +3 points
@@ -28,7 +46,7 @@ struct SetGame {
             
             isSetFound = false
             threeCardsUp = false
-            drawCards()
+//            drawCards()
             
         }else if threeCardsUp && !isSetFound{
             for i in 0..<3 {
@@ -101,9 +119,6 @@ struct SetGame {
         }
         deck.removeSubrange(0..<12)
     }
-    
-    
-    
     
     //MARK: -Creating a new deck
     
