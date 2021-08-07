@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//Drawing each card symbol
 struct CardSymbolView: View {
     let card: Card
     
@@ -52,46 +53,6 @@ struct CardSymbolView: View {
         }
     }
     
-    private struct DrawingConstants{
-        static let lineWidth: CGFloat = 2
-        static let inset: CGFloat = 1
-    }
-    
-    
-    
-    struct Diamond: Shape {
-        func path(in rect: CGRect) -> Path {
-            var path = Path()
-            
-            path.move(to: CGPoint(x: rect.midX, y:rect.maxY))
-            path.addLine(to: CGPoint(x: rect.minX, y: rect.midY))
-            path.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
-            path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
-            path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
-            
-            return path
-        }
-    }
-    
-    struct Squiggle: Shape {
-        func path(in rect: CGRect) -> Path {
-            var path = Path()
-            
-            path.move(to: CGPoint(x: rect.minX, y:rect.midY/2))
-            
-            path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY-rect.midY*(3/4)))
-            path.addQuadCurve(to: CGPoint(x: rect.maxX, y: rect.maxY-rect.midY/2),
-                              control: CGPoint(x: rect.maxX-rect.midX/2, y: rect.maxY))
-            
-            path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY*(3/4)))
-            path.addQuadCurve(to: CGPoint(x: rect.minX, y: rect.midY/2),
-                               control: CGPoint(x: rect.midX/2, y: rect.minY))
-            
-            
-            return path
-        }
-    }
-    
     private func cardColor(_ card: Card) -> Color{
         switch card.color {
         case .green:
@@ -112,6 +73,11 @@ struct CardSymbolView: View {
         case .solid:
             return 1
         }
+    }
+    
+    private struct DrawingConstants{
+        static let lineWidth: CGFloat = 2
+        static let inset: CGFloat = 1
     }
     
 }

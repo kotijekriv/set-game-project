@@ -109,7 +109,6 @@ struct SetGame {
         createADeck()
         deck.shuffle()
         
-        //TODO review
         for index in 0..<12 {
             cards.append(deck[index])
         }

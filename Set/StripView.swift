@@ -30,10 +30,8 @@ struct StripView<T>: View where T: Shape {
     }
 }
 
-
 struct StripView_Previews: PreviewProvider {
     static var previews: some View {
-        
-        StripView(shape: CardSymbolView.Diamond(),color: .red)
+        StripView(shape: Diamond(),color: .red)
     }
 }

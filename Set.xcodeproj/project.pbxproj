@@ -16,6 +16,8 @@
 		A72516F226B07CE200BE0406 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72516F126B07CE200BE0406 /* AspectVGrid.swift */; };
 		A72516F426B1903800BE0406 /* StripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72516F326B1903800BE0406 /* StripView.swift */; };
 		A72516F626B1DE2100BE0406 /* CardSymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72516F526B1DE2100BE0406 /* CardSymbolView.swift */; };
+		A767BFFD26BEC1C3000C731E /* Squiggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A767BFFC26BEC1C3000C731E /* Squiggle.swift */; };
+		A767BFFF26BEC213000C731E /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = A767BFFE26BEC213000C731E /* Diamond.swift */; };
 		A7B8BAF426B2CAEE00EB51F9 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8BAF326B2CAEE00EB51F9 /* Card.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +33,8 @@
 		A72516F126B07CE200BE0406 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		A72516F326B1903800BE0406 /* StripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripView.swift; sourceTree = "<group>"; };
 		A72516F526B1DE2100BE0406 /* CardSymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSymbolView.swift; sourceTree = "<group>"; };
+		A767BFFC26BEC1C3000C731E /* Squiggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squiggle.swift; sourceTree = "<group>"; };
+		A767BFFE26BEC213000C731E /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
 		A7B8BAF326B2CAEE00EB51F9 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,6 +71,8 @@
 				A72516DE26B0091900BE0406 /* SetApp.swift */,
 				A72516E026B0091900BE0406 /* SoloSetGameView.swift */,
 				A72516F526B1DE2100BE0406 /* CardSymbolView.swift */,
+				A767BFFE26BEC213000C731E /* Diamond.swift */,
+				A767BFFC26BEC1C3000C731E /* Squiggle.swift */,
 				A72516F326B1903800BE0406 /* StripView.swift */,
 				A72516F126B07CE200BE0406 /* AspectVGrid.swift */,
 				A72516ED26B00B5E00BE0406 /* SetGame.swift */,
@@ -159,10 +165,12 @@
 				A72516E126B0091900BE0406 /* SoloSetGameView.swift in Sources */,
 				A7B8BAF426B2CAEE00EB51F9 /* Card.swift in Sources */,
 				A72516EE26B00B5E00BE0406 /* SetGame.swift in Sources */,
+				A767BFFD26BEC1C3000C731E /* Squiggle.swift in Sources */,
 				A72516F626B1DE2100BE0406 /* CardSymbolView.swift in Sources */,
 				A72516DF26B0091900BE0406 /* SetApp.swift in Sources */,
 				A72516F226B07CE200BE0406 /* AspectVGrid.swift in Sources */,
 				A72516F026B00B9E00BE0406 /* SoloSetGame.swift in Sources */,
+				A767BFFF26BEC213000C731E /* Diamond.swift in Sources */,
 				A72516F426B1903800BE0406 /* StripView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

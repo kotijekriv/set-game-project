@@ -12,76 +12,75 @@ struct SetGameView: View {
     
     var body: some View {
         VStack{
-            HStack{
-                Text("SET GAME")
-                    .foregroundColor(.blue)
-                    .bold()
-                    .font(.largeTitle)
-                Spacer()
-                Text("SCORE: \(game.score)")
-                    .foregroundColor(.blue)
-                    .bold()
-                    .font(.subheadline)
-            }
-            .padding()
+            gameHeadline
             Spacer()
-            AspectVGrid(items: game.cards, aspectRatio: 2/3){ card in
-                CardView(card: card, threeCardsUp: game.threeCardsUp, isSetFound: game.isSetFound)
-                    .padding(3)
-                    .onTapGesture {
-                        game.choose(card)
-                    }
-            }
+            gameBody
             Spacer()
             HStack{
-                Button("NEW GAME"){
-                    game.newGame()
-                }
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .clipShape(Capsule())
-                
+                newGame
                 Spacer()
-                
-                Button("DRAW CARDS"){
-                    game.drawCards()
-                }
-                .padding()
-                .background(Color.orange)
-                .foregroundColor(.white)
-                .clipShape(Capsule())
+                drawCards
             }
             .padding()
-            
         }
-        
     }
-}
-
-struct CardView: View {
-    let card: Card
-    let threeCardsUp: Bool
-    let isSetFound: Bool
     
-    var body: some View {
-        
-        GeometryReader { geometry in
-            
-            ZStack{
-                let shape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
-                
-                shape.fill()
-                    .foregroundColor(cardColor(isFaceUp: card.isFaceUp))
-                shape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
-                    .foregroundColor(.orange)
-                CardContentView(card: card)
-                    .padding(DrawingConstants.contentViewPadding)
+    var gameHeadline: some View{
+        HStack{
+            Text("SET GAME")
+                .foregroundColor(.blue)
+                .bold()
+                .font(.largeTitle)
+            Spacer()
+            Text("SCORE: \(game.score)")
+                .foregroundColor(.blue)
+                .bold()
+                .font(.subheadline)
+        }
+        .padding()
+    }
+    
+    var gameBody: some View{
+        AspectVGrid(items: game.cards, aspectRatio: 2/3){ card in
+            GeometryReader { geometry in
+                ZStack{
+                    let shape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
+                    shape.fill()
+                        .foregroundColor(cardColor(isFaceUp: card.isFaceUp))
+                    shape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
+                        .foregroundColor(.orange)
+                    CardContentView(card: card)
+                        .padding(DrawingConstants.contentViewPadding)
+                }
+            }
+            .padding(3)
+            .onTapGesture {
+                game.choose(card)
                 
             }
         }
-        
     }
+    
+    var newGame:some View{
+        Button("NEW GAME"){
+            game.newGame()
+        }
+        .padding()
+        .background(Color.blue)
+        .foregroundColor(.white)
+        .clipShape(Capsule())
+    }
+    
+    var drawCards: some View{
+        Button("DRAW CARDS"){
+            game.drawCards()
+        }
+        .padding()
+        .background(Color.orange)
+        .foregroundColor(.white)
+        .clipShape(Capsule())
+    }
+    
     
     private struct DrawingConstants{
         static let cornerRadius: CGFloat = 10
@@ -90,9 +89,9 @@ struct CardView: View {
     }
     
     private func cardColor(isFaceUp: Bool) ->Color{
-        if isFaceUp && threeCardsUp && isSetFound {
+        if isFaceUp && game.threeCardsUp && game.isSetFound {
             return .yellow
-        }else if isFaceUp && threeCardsUp {
+        }else if isFaceUp && game.threeCardsUp {
             return .gray
         }else if isFaceUp{
             return .orange
@@ -100,31 +99,29 @@ struct CardView: View {
             return .white
         }
     }
-}
-
-
-struct CardContentView: View {
-    let card: Card
     
-    var body: some View{
-        GeometryReader { geometry in
-            VStack{
-                switch card.number{
-                case .one:
-                    CardSymbolView(card: card)
-                case .two:
-                    CardSymbolView(card: card)
-                    CardSymbolView(card: card)
-                case .three:
-                    CardSymbolView(card: card)
-                    CardSymbolView(card: card)
-                    CardSymbolView(card: card)
+    private struct CardContentView: View {
+        let card: Card
+        
+        var body: some View{
+            GeometryReader { geometry in
+                VStack{
+                    switch card.number{
+                    case .one:
+                        CardSymbolView(card: card)
+                    case .two:
+                        CardSymbolView(card: card)
+                        CardSymbolView(card: card)
+                    case .three:
+                        CardSymbolView(card: card)
+                        CardSymbolView(card: card)
+                        CardSymbolView(card: card)
+                    }
                 }
             }
         }
     }
 }
-
 
 
 
