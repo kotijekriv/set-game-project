@@ -10,6 +10,7 @@ import Foundation
 struct SetGame {
     private(set) var deck: Array<Card>
     private(set) var cards: Array<Card>
+    private(set) var discardPile: Array<Card>
     private(set) var cardsFaceUp: Array<Card>
     private(set) var score: Int
     private(set) var threeCardsUp: Bool
@@ -24,6 +25,7 @@ struct SetGame {
                 for index in 0..<3 {
                     if let chosenIndex = cards.firstIndex(where: {$0.id == cardsFaceUp[index].id}){
                         cards[chosenIndex] = deck[index]
+                        discardPile.append(deck[index])
                     }
                     check = true
                 }
@@ -96,6 +98,7 @@ struct SetGame {
     init() {
         deck = []
         cards = []
+        discardPile = []
         cardsFaceUp = []
         score = 0
         

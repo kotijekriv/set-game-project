@@ -15,6 +15,14 @@ class SoloSetGame: ObservableObject {
     
     @Published private var model = createSetGame()
     
+    var deck: Array<Card>{
+        return model.deck
+    }
+    
+    var discardPile: Array<Card>{
+        return model.discardPile
+    }
+    
     var cards: Array<Card>{
         return model.cards
     }
