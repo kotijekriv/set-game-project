@@ -20,22 +20,22 @@ struct SetGame {
         
         if threeCardsUp && isSetFound {
             if !deck.isEmpty{
-                var check = false
-                
                 for index in 0..<3 {
                     if let chosenIndex = cards.firstIndex(where: {$0.id == cardsFaceUp[index].id}){
                         cards[chosenIndex] = deck[index]
-                        discardPile.append(deck[index])
                     }
-                    check = true
                 }
-                if check{
-                    deck.removeSubrange(0..<3)
-                }
+                
+                deck.removeSubrange(0..<3)
+                
             }else{
                 for index in 0..<3 {
                     cards.removeAll(where: {$0.id == cardsFaceUp[index].id})
                 }
+            }
+            
+            for cardFaceUp in cardsFaceUp {
+                discardPile.append(cardFaceUp)
             }
             
             cardsFaceUp.removeAll()

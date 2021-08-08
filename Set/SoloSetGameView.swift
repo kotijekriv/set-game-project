@@ -10,6 +10,8 @@ import SwiftUI
 struct SetGameView: View {
     @ObservedObject var game: SoloSetGame
     
+    @Namespace private var dealingNameSpace
+    
     var body: some View {
         VStack{
             HStack{
@@ -41,9 +43,13 @@ struct SetGameView: View {
     var gameBody: some View{
         AspectVGrid(items: game.cards, aspectRatio: 2/3){ card in
             CardView(card: card, isDealt: true, threeCardsUp: game.threeCardsUp, isSetFound: game.isSetFound)
+                .matchedGeometryEffect(id: card.id, in: dealingNameSpace)
+                .transition(AnyTransition.asymmetric(insertion: .slide, removal: .slide))
+                .zIndex(zIndex(of: card))
                 .onTapGesture {
-                    game.choose(card)
-                    
+                    withAnimation{
+                        game.choose(card)
+                    }
                 }
         }
     }
@@ -59,6 +65,9 @@ struct SetGameView: View {
         ZStack{
             ForEach(game.discardPile){ card in
                 CardView(card: card, isDealt: true, threeCardsUp: false, isSetFound: false)
+                    .matchedGeometryEffect(id: card.id, in: dealingNameSpace)
+                    .transition(AnyTransition.asymmetric(insertion: .slide, removal: .opacity))
+                    .zIndex(zIndex(of: card))
             }
         }
         .frame(width: CardConstants.undealWidth, height: CardConstants.undealHeight)
@@ -69,12 +78,47 @@ struct SetGameView: View {
         ZStack{
             ForEach(game.deck){ card in
                 CardView(card: card, isDealt: false, threeCardsUp: false, isSetFound: false)
+                    .matchedGeometryEffect(id: card.id, in: dealingNameSpace)
+                    .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .opacity))
+                    .zIndex(zIndex(of: card))
             }
         }
         .frame(width: CardConstants.undealWidth, height: CardConstants.undealHeight)
+        .onTapGesture {
+            withAnimation{
+                game.drawCards()
+            }
+        }
+    }
+    
+    private func zIndex(of card: Card) -> Double{
+        if let index = game.deck.firstIndex(where: { $0.id == card.id }){
+            return -Double(index)
+        } else if let index = game.cards.firstIndex(where: { $0.id == card.id }){
+            return -Double(index)
+        } else if let index = game.discardPile.firstIndex(where: { $0.id == card.id }){
+            return -Double(index)
+        }
+        return 0
+    }
+    
+    private func dealAnimation(for card: Card) -> Animation{
+        var delay = 0.0
+        
+        if let index = game.deck.firstIndex(where: { $0.id == card.id }){
+            delay = Double(index) * (CardConstants.totalDealDuration / Double(game.deck.count))
+        } else if let index = game.cards.firstIndex(where: { $0.id == card.id }){
+            delay = Double(index) * (CardConstants.totalDealDuration / Double(game.cards.count))
+        } else if let index = game.discardPile.firstIndex(where: { $0.id == card.id }){
+            delay = Double(index) * (CardConstants.totalDealDuration / Double(game.discardPile.count))
+        }
+        
+        return Animation.easeInOut(duration: CardConstants.dealDuration).delay(delay)
     }
     
     private struct CardConstants{
+        static let dealDuration: Double = 0.5
+        static let totalDealDuration: Double = 2
         static let aspectRatio: CGFloat = 2/3
         static let undealHeight: CGFloat  = 90
         static let undealWidth = undealHeight * aspectRatio
