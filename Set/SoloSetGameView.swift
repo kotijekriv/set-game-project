@@ -66,12 +66,10 @@ struct SetGameView: View {
     var discardPileBody: some View{
         ZStack{
             ForEach(game.discardPile){ card in
-                withAnimation(dealAnimation(for: card)){
                     CardView(card: card, isDealt: true, isMatched: false, threeCardsUp: false, isSetFound: false)
                         .matchedGeometryEffect(id: card.id, in: dealingNameSpace)
                         .transition(AnyTransition.asymmetric(insertion: .slide, removal: .slide))
                         .zIndex(zIndex(of: card))
-                }
             }
         }
         .frame(width: CardConstants.undealWidth, height: CardConstants.undealHeight)
@@ -106,20 +104,6 @@ struct SetGameView: View {
         return 0
     }
     
-    private func dealAnimation(for card: Card) -> Animation{
-        var delay = 0.0
-        
-        if let index = game.deck.firstIndex(where: { $0.id == card.id }){
-            delay = Double(index) * (CardConstants.totalDealDuration / Double(game.deck.count))
-        } else if let index = game.cards.firstIndex(where: { $0.id == card.id }){
-            delay = Double(index) * (CardConstants.totalDealDuration / Double(game.cards.count))
-        } else if let index = game.discardPile.firstIndex(where: { $0.id == card.id }){
-            delay = Double(index) * (CardConstants.totalDealDuration / Double(game.discardPile.count))
-        }
-        
-        return Animation.easeInOut(duration: CardConstants.dealDuration).delay(delay)
-    }
-    
     private struct CardConstants{
         static let dealDuration: Double = 0.5
         static let totalDealDuration: Double = 2
@@ -150,9 +134,7 @@ struct CardView: View{
                 Text("M")
                     .font(.title)
                     .opacity(isMatched && isSetFound && threeCardsUp ? 1 : 0)
-                    .transition(AnyTransition.asymmetric(insertion: .scale, removal: .identity))
-//                    .rotationEffect(Angle.degrees(isMatched && isSetFound && threeCardsUp ? 360 : 0))
-//                    .animation(Animation.linear(duration: 1))
+                    .transition(AnyTransition.asymmetric(insertion: .scale, removal: .opacity))
                 Text("F")
                     .font(.title)
                     .opacity((isMatched && threeCardsUp && !isSetFound) ? 1 : 0)
