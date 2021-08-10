@@ -42,7 +42,7 @@ struct SetGameView: View {
     
     var gameBody: some View{
         AspectVGrid(items: game.cards, aspectRatio: 2/3){ card in
-            CardView(card: card, isDealt: true, threeCardsUp: game.threeCardsUp, isSetFound: game.isSetFound)
+            CardView(card: card, isDealt: true, isMatched: game.cardsFaceUp.contains(where: { $0.id == card.id}), threeCardsUp: game.threeCardsUp, isSetFound: game.isSetFound)
                 .matchedGeometryEffect(id: card.id, in: dealingNameSpace)
                 .transition(AnyTransition.asymmetric(insertion: .slide, removal: .slide))
                 .zIndex(zIndex(of: card))
@@ -56,7 +56,9 @@ struct SetGameView: View {
     
     var newGame: some View{
         Button("NEW GAME"){
-            game.newGame()
+            withAnimation{
+                game.newGame()
+            }
         }
     }
     
@@ -64,10 +66,12 @@ struct SetGameView: View {
     var discardPileBody: some View{
         ZStack{
             ForEach(game.discardPile){ card in
-                CardView(card: card, isDealt: true, threeCardsUp: false, isSetFound: false)
-                    .matchedGeometryEffect(id: card.id, in: dealingNameSpace)
-                    .transition(AnyTransition.asymmetric(insertion: .slide, removal: .opacity))
-                    .zIndex(zIndex(of: card))
+                withAnimation(dealAnimation(for: card)){
+                    CardView(card: card, isDealt: true, isMatched: false, threeCardsUp: false, isSetFound: false)
+                        .matchedGeometryEffect(id: card.id, in: dealingNameSpace)
+                        .transition(AnyTransition.asymmetric(insertion: .slide, removal: .slide))
+                        .zIndex(zIndex(of: card))
+                }
             }
         }
         .frame(width: CardConstants.undealWidth, height: CardConstants.undealHeight)
@@ -77,7 +81,7 @@ struct SetGameView: View {
     var deckBody: some View{
         ZStack{
             ForEach(game.deck){ card in
-                CardView(card: card, isDealt: false, threeCardsUp: false, isSetFound: false)
+                CardView(card: card, isDealt: false, isMatched: false, threeCardsUp: false, isSetFound: false)
                     .matchedGeometryEffect(id: card.id, in: dealingNameSpace)
                     .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .opacity))
                     .zIndex(zIndex(of: card))
@@ -128,6 +132,7 @@ struct SetGameView: View {
 struct CardView: View{
     let card: Card
     let isDealt: Bool
+    let isMatched: Bool
     let threeCardsUp: Bool
     let isSetFound: Bool
     
@@ -142,6 +147,18 @@ struct CardView: View{
                 cardContent
                     .padding(DrawingConstants.contentViewPadding)
                     .opacity(isDealt ? 1 : 0)
+                Text("M")
+                    .font(.title)
+                    .opacity(isMatched && isSetFound && threeCardsUp ? 1 : 0)
+                    .transition(AnyTransition.asymmetric(insertion: .scale, removal: .identity))
+//                    .rotationEffect(Angle.degrees(isMatched && isSetFound && threeCardsUp ? 360 : 0))
+//                    .animation(Animation.linear(duration: 1))
+                Text("F")
+                    .font(.title)
+                    .opacity((isMatched && threeCardsUp && !isSetFound) ? 1 : 0)
+                    .transition(AnyTransition.asymmetric(insertion: .scale, removal: .identity))
+                    .rotationEffect(Angle.degrees(isMatched && threeCardsUp && !isSetFound ? 360 : 0))
+                    .animation(Animation.linear(duration: 1))
             }
         }
         .padding(3)

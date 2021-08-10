@@ -27,6 +27,11 @@ class SoloSetGame: ObservableObject {
         return model.cards
     }
     
+    var cardsFaceUp: Array<Card>{
+        return model.cardsFaceUp
+    }
+    
+    
     var score: Int{
         return model.score
     }

@@ -18,22 +18,17 @@ struct SetGame {
     
     mutating func choose(_ card: Card){
         
+        //if clicked on card that isSet, do nothing
+        if cardsFaceUp.contains(where: { $0.id == card.id}) && threeCardsUp && isSetFound {
+            return
+        }
+        
         if threeCardsUp && isSetFound {
-            if !deck.isEmpty{
-                for index in 0..<3 {
-                    if let chosenIndex = cards.firstIndex(where: {$0.id == cardsFaceUp[index].id}){
-                        cards[chosenIndex] = deck[index]
-                    }
-                }
-                
-                deck.removeSubrange(0..<3)
-                
-            }else{
-                for index in 0..<3 {
-                    cards.removeAll(where: {$0.id == cardsFaceUp[index].id})
-                }
-            }
             
+            for index in 0..<3 {
+                cards.removeAll(where: {$0.id == cardsFaceUp[index].id})
+            }
+        
             for cardFaceUp in cardsFaceUp {
                 discardPile.append(cardFaceUp)
             }
@@ -87,11 +82,41 @@ struct SetGame {
     }
     
     mutating func drawCards(){
-        if !deck.isEmpty{
-            for index in 0..<3{
-                cards.append(deck[index])
+        if threeCardsUp && isSetFound {
+            if !deck.isEmpty{
+                for index in 0..<3 {
+                    if let chosenIndex = cards.firstIndex(where: {$0.id == cardsFaceUp[index].id}){
+                        cards[chosenIndex] = deck[index]
+                    }
+                }
+                
+                deck.removeSubrange(0..<3)
+                
+            }else{
+                for index in 0..<3 {
+                    cards.removeAll(where: {$0.id == cardsFaceUp[index].id})
+                }
             }
-            deck.removeSubrange(0..<3)
+            
+            for cardFaceUp in cardsFaceUp {
+                discardPile.append(cardFaceUp)
+            }
+            
+            cardsFaceUp.removeAll()
+            
+            //if cards are SET you get +3 points
+            score+=3
+            
+            isSetFound = false
+            threeCardsUp = false
+            
+        } else {
+            if !deck.isEmpty{
+                for index in 0..<3{
+                    cards.append(deck[index])
+                }
+                deck.removeSubrange(0..<3)
+            }
         }
     }
     

@@ -14,6 +14,7 @@ struct Card: Identifiable{
     var symbol: CardSymbol
     var number: CardNumber
     var isFaceUp = false
+    
     var id: Int
 }
 
